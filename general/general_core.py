@@ -32,12 +32,52 @@ def Month1to13(month):
         pass
     return month    
 
-def XList(sep=1):
+def XList(sep=1,syr=2001,fyr=2020,monthTF=True,vmonth=1):
+  """
+  Parameters
+  ----------
+  sep : int
+    interval year
+  syr : int
+    start year
+  fyr : int
+    final year
+  monthTF : bool
+    use month or not
+  vmonth : int
+    use month
+
+  Returns
+  ----------
+  x_index : list
+    date list
+  """
   x_index = []
-  year_list = list(np.arange(2001,2020,1))
+  year_list = list(np.arange(syr,fyr,1))
   for inx,year in enumerate(year_list):
     if inx%sep == 0:
-      for month in range(1,13,1):
-        if month == 1:
-          x_index.append(str(year)+"/"+IntegerChecker(month))
+      if monthTF == True:
+        for month in range(1,13,1):
+          if month == vmonth:
+            x_index.append(str(year)+"/"+IntegerChecker(month))
+      else:
+        x_index.append(str(year))
+    else:
+      x_index.append("")
   return x_index
+
+def Make_Date(df,syr=2001,fyr=2019):
+  """
+  parameter 
+  --------
+  df : DataFrame
+  syr : int
+  fyr : int
+  """
+  i = 0
+  for yr in range(syr,fyr,1):
+    for mn in range(1,13,1):
+      df.loc[i,"date"] = str(yr)+"/"+IntegerChecker(mn)
+      i += 1
+  return df
+
