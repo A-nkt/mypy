@@ -1,6 +1,6 @@
 from general_core import * 
 
-def integerchecker(x):
+def double(x):
   return IntegerChecker(x)
 
 def countdays(year,month):
