@@ -7,20 +7,19 @@
 ## Usage(使用方法)
 
 ### import
-
-モジュールとして用いる場合は`sys`でモジュールサーチパスを追加してからimportしてください。
-myh5モジュールを使用したい場合、
+現状、``sys.path.append``を推奨します
 ```python
 import sys
-sys.path.append("Mypy/myh5/main_h5/")
-import main_h5
+sys.path.append('/mnt/dg1/nakata/Git/mypy/')
 ```
+
 generalモジュールを使用したい場合、
 ```python
-import sys
-sys.path.append("Mypy/general/main_general")
-import main_general
+import general.main_general
 
 ```
 
-
+myh5モジュールを使用したい場合、
+```python
+import myh5.main_h5
+```
