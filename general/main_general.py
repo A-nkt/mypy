@@ -1,3 +1,4 @@
+import numpy as np
 
 def countdays(year,month):
     """
@@ -29,7 +30,7 @@ def month1to13(month):
         pass
     return month 
 
-def xlist(interval=1,syr=2000,fyr=2020,month=True,v_month=1):
+def xlist(interval=1,syr=2000,fyr=2020,month_is=True,v_month=1):
     """
     Parameters
     ----------
@@ -39,9 +40,9 @@ def xlist(interval=1,syr=2000,fyr=2020,month=True,v_month=1):
       開始年
     fyr : int
       最後の年
-    monthTF : bool
+    month_is : bool
       月の表示の有無
-    vmonth : int
+    v_month : int
     　表示の月について
 
     Returns
@@ -50,17 +51,13 @@ def xlist(interval=1,syr=2000,fyr=2020,month=True,v_month=1):
       データリスト
     """
     x_index = []
-    year_list = list(np.arange(syr,fyr,1))
-    for inx,year in enumerate(year_list):
-        if inx%sep == 0:
-            if monthTF == True:
-                for month in range(1,13,1):
-                    if month == vmonth:
-                        x_index.append(str(year)+"/"+IntegerChecker(month))
-            else:
-                x_index.append(str(year))
-        else:
-              x_index.append("")
+    for year in range(syr,fyr,interval):
+      if month_is == True:
+        for month in range(1,13,1):
+          if month == v_month:
+            x_index.append(str(year)+"/"+str(month).zfill(2))
+      else:
+        x_index.append(str(year))
     return x_index
 
 def make_date(df,syr=2001,fyr=2019):
