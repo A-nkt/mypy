@@ -1,3 +1,4 @@
+import h5py
 
 def PrintOnlyDataset(name, obj):
     if isinstance(obj, h5py.Dataset):

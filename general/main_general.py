@@ -74,11 +74,58 @@ def make_date(df,syr=2001,fyr=2019):
     i = 0
     for yr in range(syr,fyr,1):
         for mn in range(1,13,1):
-            df.loc[i,"date"] = str(yr)+"/"+IntegerChecker(mn)
+            df.loc[i,"date"] = str(yr)+"/"+str(mn).zfill(2)
             i += 1
     return df
 
-class Basic():
-    def monthlist(self):
-        monthlist = ["Jan","Feb","Mar","Apr","May","June","July","Aug","Sept","Oct","Nov","Dec"]
-        return monthlist
+def make_time_series(df,syr=2001,fyr=2021):
+    """
+    Parameter
+    -------
+    df : DataFrame
+      input dataframe
+    syr : int
+      start year
+    fyr : int
+      finial year
+
+    Returns
+    -------
+    df : DataFrame
+      input dataframe
+    """
+    i = 0
+    for yr in range(syr,fyr,1):
+      for mn in range(1,13,1):
+        df.loc[i,'time'] = yr + (mn-1)/12
+        i += 1
+    return df
+
+def monthlist(sep=2,only_head=False):
+    monthlist = ["Jan","Feb","Mar","Apr","May","June","July","Aug","Sept","Oct","Nov","Dec"]
+    for i in range(12):
+      if i%sep != 0:
+        monthlist[i] = ""
+    if only_head:
+      for i in range(12):
+        monthlist[i] = monthlist[i][0]
+    return monthlist
+
+def season_to_month(season):
+    """
+    season : str
+      djf or mam or jja or son
+    """
+    if season == 'DJF':
+      month = [12,1,2]
+    elif season == 'MAM':
+      month = [3,4,5]
+    elif season == 'JJA':
+      month = [6,7,8]
+    elif season == 'SON':
+      month = [9,10,11]
+    return month
+
+def to_trend(df,file_path=None,val=3):
+    val = str(val)
+    df.to_csv(file_path,index=False,header=False,sep=" ",float_format="%.{}f".format(val))
